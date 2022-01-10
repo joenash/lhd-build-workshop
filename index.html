@@ -1,0 +1,50 @@
+<script
+  type="text/javascript"
+  src="//media.twiliocdn.com/sdk/js/sync/v3.0/twilio-sync.min.js"
+></script>
+<script type="module">
+  // import kaboom lib
+  import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
+
+  // initialize kaboom context
+  kaboom({
+    width: 800,
+    height: 600,
+  });
+  gameSetup();
+
+  function gameSetup() {
+    add([text("Jump!"), pos(120, 80)]);
+
+    const player = add([
+      rect(40, 40),
+      pos(Math.random() * width(), Math.random() * height()),
+      outline(2),
+      color(255, 0, 0),
+      area(),
+      body(),
+    ]);
+
+    onKeyPress("w", () => {
+      player.jump();
+    });
+
+    onKeyDown("d", () => {
+      player.move(200, 0);
+    });
+
+    onKeyDown("a", () => {
+      player.move(-200, 0);
+    });
+
+    // Add floor
+    add([
+      rect(width(), 48),
+      pos(0, height() - 48),
+      outline(4),
+      area(),
+      solid(),
+      color(127, 200, 255),
+    ]);
+  }
+</script>
